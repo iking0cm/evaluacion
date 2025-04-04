@@ -35,7 +35,7 @@
   <h1>Heroes del universo Marvel</h1>
   <div id="heroes-list"></div>
   <script>
-    fetch('heroes.json')
+    fetch('js/heroes.json')
     .then(response => response.json())
     .then(data => mostrarHeroes(data))
     .catch(error => {
@@ -46,8 +46,10 @@
       const heroesList = document.getElementById("heroes-list");
       if(data && data.Hero) {
         data.Hero.forEach(hero => {
+          
           const heroDiv = document.createElement("div");
           heroDiv.classList.add("hero");
+
           heroDiv.innerHTML=`
           <h3>${hero.nombre}</h3>
           <p><strong>Liga:</strong> ${hero.liga}</p>
