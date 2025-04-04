@@ -4,9 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Héroes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .hero {
+      border:1px solid #ccc;
+      padding: 20px;
+      margin:10;
+      display:inline-block;
+      width: 250px;
+      text-align:center;
+    }
+    .hero img {
+      width: 100%;
+      height: auto;
+    }
+    h3{
+      font-size: 1.5em;
+      color: #333;
+    }
+    p {
+      font-size: 1em;
+      color: #666;
+    }
+  </style>
   
 </head>
 <body>
+  <h1>Heroes del universo Marvel</h1>
+  <div id="heroes-list"></div>
+  <script>
+    fetch('heroes.json')
+    .then(response => response.json())
+    .then(data => mostrarHeroes(data))
+    .catch(error => {
+      console.error('error xd', error);
+      document.body.innerHTML ='<h2>no carga eroes </h2>';
+    });
+    function mostrarHeroes(data) {
+      const heroesList = document.getElementById("heroes-list");
+      if(data && data.Hero) {
+        data.Hero.forEach(hero => {
+          const heroDiv = document.createElement("div");
+          heroDiv.classList.add("hero");
+          heroDiv.innerHTML=`
+          <h3>${hero.nombre}</h3>
+          <p><strong>Liga:</strong> ${hero.liga}</p>
+          <p><strong>Nivel de poder:</strong> ${hero.nivelPoder}</p>
+          <p><strong>Poderes:</strong> ${hero.poderes.join(",")}</p>
+          <img src="${hero.foto}" alt="${hero.nombre}" />
+          `;
+          heroesList.appendChild(heroDiv);
+          
+        });
+      }
+    }
+  </script>
     
 </body>
 </html>
